@@ -29,12 +29,6 @@ const DUMMY_EXPENSES = [
     amount: 253,
     date: new Date(2019, 2, 28),
   },
-  {
-    id: "e5",
-    title: "Pen",
-    amount: 45,
-    date: new Date(2022, 5, 12),
-  },
 ];
 const MainScreen = () => {
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);

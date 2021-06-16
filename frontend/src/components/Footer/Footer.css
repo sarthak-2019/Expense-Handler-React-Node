@@ -62,8 +62,8 @@ a {
   background-color: #da0e0e;
   transition: 0.4s;
 }
-
 .footer-container {
+  margin-top: 20px;
   color: aliceblue;
   text-align: center;
   background-color: rgba(49, 49, 54, 0.993);

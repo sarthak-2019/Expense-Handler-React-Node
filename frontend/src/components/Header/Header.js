@@ -1,19 +1,14 @@
 import React from "react";
-
-import "./Header.css";
-
-const res = "You are Logged in as ";
+import classes from "./Header.module.css";
 const Header = () => {
   return (
-    <div className="main">
-      <div>
-        <h3>
-          {res}
-          <i class="far fa-grin"> </i>
-        </h3>
+    <React.Fragment>
+      <div className={classes.header}>
+        <h1>Hi Sarthak!</h1>
+        <button class="button-item">Log Out</button>
       </div>
-      <div>Name: Sarthak Shukla Emailid: shuklasarthak100@gmail.com</div>
-    </div>
+    </React.Fragment>
   );
 };
+
 export default Header;
