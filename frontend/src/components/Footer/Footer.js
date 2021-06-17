@@ -17,7 +17,7 @@ const Footer = () => {
         <span style={{ paddingRight: 5 }}>Copyright </span>
         <FontAwesomeIcon icon={faCopyright} />{" "}
         <span style={{ paddingLeft: 5 }}>
-          {new Date().getFullYear()} Sarthak Shukla. All Rights Reserved.
+          {new Date().getFullYear()} Sarthak Shukla.
         </span>
       </div>
       <a href="https://github.com/sarthak-2019" className="item3">

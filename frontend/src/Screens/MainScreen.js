@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import NewExpense from "./../components/NewExpense/NewExpense";
 import Expenses from "./../components/Expenses/Expenses";
 import Header from "./../components/Header/Header";
+import { useAuth } from "../components/ContextApi/authentication";
+import { Redirect } from "react-router-dom";
+
 const DUMMY_EXPENSES = [
   {
     id: "e1",
@@ -30,8 +32,18 @@ const DUMMY_EXPENSES = [
     date: new Date(2019, 2, 28),
   },
 ];
+
 const MainScreen = () => {
   const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+
+  const auth = useAuth();
+  const [redirect, setredirect] = useState(null);
+  useEffect(() => {
+    if (!auth) {
+      console.log("hello");
+      setredirect(<Redirect to="/" />);
+    }
+  }, []);
 
   const addExpenseHandler = (expense) => {
     setExpenses((prevExpenses) => {
@@ -40,9 +52,12 @@ const MainScreen = () => {
   };
   return (
     <div>
+      {redirect}
       <Header />
-      <NewExpense onAddExpense={addExpenseHandler} />
-      <Expenses items={expenses} />
+      <React.Fragment>
+        <NewExpense onAddExpense={addExpenseHandler} />
+        <Expenses items={expenses} />
+      </React.Fragment>
     </div>
   );
 };

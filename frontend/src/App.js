@@ -2,13 +2,19 @@ import React from "react";
 import MainScreen from "./Screens/MainScreen";
 import HomeScreen from "./Screens/HomeScreen";
 import Footer from "./components/Footer/Footer";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Authenticate } from "./components/ContextApi/authentication";
+import axios from "axios";
+axios.defaults.withCredentials = true;
 const App = () => {
   return (
-    <div>
-      <MainScreen />
-      <Footer />
-    </div>
+    <Router>
+      <Authenticate>
+        <Route path="/" component={HomeScreen} exact />
+        <Route path="/main" component={MainScreen} />
+        <Footer />
+      </Authenticate>
+    </Router>
   );
 };
 

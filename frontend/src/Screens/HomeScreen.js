@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import "./HomeScreen.css";
-
-const buttonHandler1 = () => {
-  let box = document.getElementById("container");
-  box.classList.remove("right-panel-active");
-};
-const buttonHandler2 = () => {
-  let box = document.getElementById("container");
-  box.classList.add("right-panel-active");
-};
-
+const axios = require("axios");
 const HomeScreen = () => {
+  const buttonHandler1 = () => {
+    let box = document.getElementById("container");
+    box.classList.remove("right-panel-active");
+  };
+  const buttonHandler2 = () => {
+    let box = document.getElementById("container");
+    box.classList.add("right-panel-active");
+  };
   const [enteredName, setEnteredName] = useState("");
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
@@ -32,26 +31,22 @@ const HomeScreen = () => {
     setEnteredConfirmPassword(event.target.value);
   };
 
-  const submitHandler_SignUp = (event) => {
+  async function submitHandler_SignUp(event) {
     event.preventDefault();
 
-    const userData = {
-      name: enteredName,
-      email: enteredEmail,
-      password: enteredPassword,
-      confirmPassword: enteredConfirmPassword,
-    };
-    console.log(userData);
-
-    setEnteredName("");
-    setEnteredEmail("");
-    setEnteredPassword("");
-    setEnteredConfirmPassword("");
-
-    if (userData.password !== userData.confirmPassword) {
-      alert("Password and Confirm Password doesn't match.Try Again! ");
+    try {
+      const userData = {
+        name: enteredName,
+        email: enteredEmail,
+        password: enteredPassword,
+        passwordConfirm: enteredConfirmPassword,
+      };
+      console.log(userData);
+      await axios.post("http://127.0.0.1:8000/api/v1/users/signup", userData);
+    } catch (err) {
+      console.log(err);
     }
-  };
+  }
 
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
@@ -89,24 +84,30 @@ const HomeScreen = () => {
               placeholder="Name"
               value={enteredName}
               onChange={nameChangeHandler}
+              required
             />
             <input
               type="email"
               placeholder="Email"
               value={enteredEmail}
               onChange={emailChangeHandler}
+              required
             />
             <input
               type="password"
+              minLength="4"
               placeholder="Password"
               value={enteredPassword}
               onChange={passwordChangeHandler}
+              required
             />
             <input
               type="password"
+              minLength="4"
               placeholder="Confirm Password"
               value={enteredConfirmPassword}
               onChange={confirmPasswordChangeHandler}
+              required
             />
             <button>Sign Up</button>
           </form>
