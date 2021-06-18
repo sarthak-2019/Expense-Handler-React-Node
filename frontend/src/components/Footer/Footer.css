@@ -63,7 +63,8 @@ a {
   transition: 0.4s;
 }
 .footer-container {
-  margin-top: 20px;
+  position: absolute;
+  /* margin-top: 20px; */
   color: aliceblue;
   text-align: center;
   background-color: rgba(49, 49, 54, 0.993);

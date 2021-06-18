@@ -1,17 +1,14 @@
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
+
 const AuthContext = createContext();
 
 function AuthContextProvider(props) {
   const [loggedIn, setLoggedIn] = useState(undefined);
 
-  function getLoggedIn() {
-    const loggedInRes = axios
-      .get("http://localhost:5000/auth/loggedIn")
-      .then((res) => {
-        console.log(res.data);
-        setLoggedIn(res.data);
-      });
+  async function getLoggedIn() {
+    const loggedInRes = await axios.get("http://localhost:5000/auth/loggedIn");
+    setLoggedIn(loggedInRes.data);
   }
   useEffect(() => {
     getLoggedIn();

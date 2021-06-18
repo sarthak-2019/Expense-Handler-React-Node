@@ -49,11 +49,8 @@ const HomeScreen = () => {
       };
       console.log(userData);
       await axios.post("http://localhost:5000/auth/signup", userData);
-      getLoggedIn();
-      console.log("sartahk");
-      // setTimeout(() => {
-      //   console.log("sartahk");
-      // }, 5000);
+      await getLoggedIn();
+
       history.push("/main");
     } catch (err) {
       console.log(err);
@@ -82,6 +79,9 @@ const HomeScreen = () => {
       console.log(userData);
       await axios.post("http://localhost:5000/auth/login", userData);
       await getLoggedIn();
+      await getLoggedIn();
+
+      history.push("/main");
     } catch (err) {
       console.log(err);
     }
