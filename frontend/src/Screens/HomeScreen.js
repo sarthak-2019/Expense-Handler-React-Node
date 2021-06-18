@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import "./HomeScreen.css";
 import AuthContext from "../context/AuthContext";
 import { useHistory } from "react-router-dom";
-const axios = require("axios");
+import axios from "axios";
 
 const HomeScreen = () => {
   const { getLoggedIn } = useContext(AuthContext);
@@ -76,7 +76,6 @@ const HomeScreen = () => {
         email: userEmail,
         password: userPassword,
       };
-      console.log(userData);
       await axios.post("http://localhost:5000/auth/login", userData);
       await getLoggedIn();
       await getLoggedIn();
@@ -90,10 +89,10 @@ const HomeScreen = () => {
     // setUserPassword("");
   }
   return (
-    <div class="main-body">
+    <div className="main-body">
       <h1>Welcome To Expense Handler App</h1>
-      <div class="container" id="container">
-        <div class="form-container sign-up-container">
+      <div className="container" id="container">
+        <div className="form-container sign-up-container">
           <form onSubmit={submitHandler_SignUp}>
             <h1>Create Account</h1>
             <span>or use your email for registration</span>
@@ -130,7 +129,7 @@ const HomeScreen = () => {
             <button>Sign Up</button>
           </form>
         </div>
-        <div class="form-container sign-in-container">
+        <div className="form-container sign-in-container">
           <form onSubmit={submitHandler_SignIn}>
             <h1>Sign in</h1>
             <span>or use your account</span>
@@ -149,23 +148,23 @@ const HomeScreen = () => {
             <button>Sign In</button>
           </form>
         </div>
-        <div class="overlay-container">
-          <div class="overlay">
-            <div class="overlay-panel overlay-left">
+        <div className="overlay-container">
+          <div className="overlay">
+            <div className="overlay-panel overlay-left">
               <h1>Welcome Back!</h1>
               <p>To keep connected please login with your personal info</p>
-              <button class="ghost" id="signIn" onClick={buttonHandler1}>
+              <button className="ghost" id="signIn" onClick={buttonHandler1}>
                 Sign In
               </button>
             </div>
-            <div class="overlay-panel overlay-right">
+            <div className="overlay-panel overlay-right">
               <h1>Hello !</h1>
               <p>
                 Sign Up for start using the service. Hope you will like the
                 experience.Visit my Github repository for more interesting
                 projects.
               </p>
-              <button class="ghost" id="signUp" onClick={buttonHandler2}>
+              <button className="ghost" id="signUp" onClick={buttonHandler2}>
                 Sign Up
               </button>
             </div>

@@ -18,6 +18,7 @@ app.use(
 //   Set up the routes
 
 app.use('/auth', require('./routers/userRouter'));
+app.use('/expense', require('./routers/expenseRouter'));
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this Server!`, 404));
