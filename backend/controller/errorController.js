@@ -1,4 +1,3 @@
-/* eslint-disable */
 const AppError = require('./../utils/appError');
 
 const handleCastErrorDB = (err) => {
@@ -57,25 +56,25 @@ module.exports = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
 
-  if (process.env.NODE_ENV === 'development') {
-    sendErrorDev(err, res);
-  } else if (process.env.NODE_ENV === 'production') {
-    if (err.name === 'CastError') {
-      error = handleCastErrorDB(err);
-      sendErrorProd(error, res);
-    } else if (err.code === 11000) {
-      error = handleDuplicateFieldsDB(err);
-      sendErrorProd(error, res);
-    } else if (err.name === 'ValidationError') {
-      error = handleValidationErrorDB(err);
-      sendErrorProd(error, res);
-    } else if (err.name === 'JsonWebTokenError') {
-      error = handleJWTError(err);
-      sendErrorProd(error, res);
-    } else if (err.name === 'TokenExpiredError') {
-      error = handleJWTExpiredError(err);
-      sendErrorProd(error, res);
-    } else sendErrorProd(err, res);
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  //   sendErrorDev(err, res);
+  // } else if (process.env.NODE_ENV === 'production') {
+  if (err.name === 'CastError') {
+    error = handleCastErrorDB(err);
+    sendErrorProd(error, res);
+  } else if (err.code === 11000) {
+    error = handleDuplicateFieldsDB(err);
+    sendErrorProd(error, res);
+  } else if (err.name === 'ValidationError') {
+    error = handleValidationErrorDB(err);
+    sendErrorProd(error, res);
+  } else if (err.name === 'JsonWebTokenError') {
+    error = handleJWTError(err);
+    sendErrorProd(error, res);
+  } else if (err.name === 'TokenExpiredError') {
+    error = handleJWTExpiredError(err);
+    sendErrorProd(error, res);
+  } else sendErrorProd(err, res);
+  // }
   next();
 };

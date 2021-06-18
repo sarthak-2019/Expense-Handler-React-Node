@@ -14,11 +14,11 @@ const Footer = () => {
       <div className="item1">Code_To_Thrive</div>
 
       <div className="item2">
-        <span style={{ paddingRight: 5 }}>Copyright </span>
-        <FontAwesomeIcon icon={faCopyright} />{" "}
-        <span style={{ paddingLeft: 5 }}>
-          {new Date().getFullYear()} Sarthak Shukla.
+        <span style={{ paddingRight: 5 }}>
+          Copyright {new Date().getFullYear()}
         </span>
+        <FontAwesomeIcon icon={faCopyright} />{" "}
+        <span style={{ paddingLeft: 5 }}>Sarthak Shukla.</span>
       </div>
       <a href="https://github.com/sarthak-2019" className="item3">
         <FontAwesomeIcon icon={faGithub} />

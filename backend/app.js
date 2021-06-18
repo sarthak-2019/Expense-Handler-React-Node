@@ -1,17 +1,11 @@
 const express = require('express');
-const morgan = require('morgan');
-const app = express();
-const globalErrorHandler = require('./controllers/errorController');
-const AppError = require('./utils/appError');
-const userRouter = require('./routes/userRoutes');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-// Development Logging
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-}
+const morgan = require('morgan');
+const globalErrorHandler = require('./controller/errorController');
+const app = express();
 
-// Body Parser reading data from body into req.body
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -21,10 +15,9 @@ app.use(
   })
 );
 
-// Mounting the Router
-app.use('/api/v1/users', userRouter);
+//   Set up the routes
 
-// Middle Ware to throw error if the router does not exist
+app.use('/auth', require('./routers/userRouter'));
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this Server!`, 404));

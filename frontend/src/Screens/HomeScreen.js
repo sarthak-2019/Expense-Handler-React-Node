@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./HomeScreen.css";
+import AuthContext from "../context/AuthContext";
+import { useHistory } from "react-router-dom";
 const axios = require("axios");
+
 const HomeScreen = () => {
+  const { getLoggedIn } = useContext(AuthContext);
+  const history = useHistory();
+
   const buttonHandler1 = () => {
     let box = document.getElementById("container");
     box.classList.remove("right-panel-active");
@@ -39,16 +45,22 @@ const HomeScreen = () => {
         name: enteredName,
         email: enteredEmail,
         password: enteredPassword,
-        passwordConfirm: enteredConfirmPassword,
+        passwordVerify: enteredConfirmPassword,
       };
       console.log(userData);
-      await axios.post("http://127.0.0.1:8000/api/v1/users/signup", userData);
+      await axios.post("http://localhost:5000/auth/signup", userData);
+      getLoggedIn();
+      console.log("sartahk");
+      // setTimeout(() => {
+      //   console.log("sartahk");
+      // }, 5000);
+      history.push("/main");
     } catch (err) {
       console.log(err);
     }
   }
 
-  const [userName, setUserName] = useState("");
+  const [userEmail, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
   const userNameChangeHandler = (event) => {
@@ -59,18 +71,24 @@ const HomeScreen = () => {
     setUserPassword(event.target.value);
   };
 
-  const submitHandler_SignIn = (event) => {
+  async function submitHandler_SignIn(event) {
     event.preventDefault();
 
-    const userData = {
-      name: userName,
-      password: userPassword,
-    };
-    console.log(userData);
+    try {
+      const userData = {
+        email: userEmail,
+        password: userPassword,
+      };
+      console.log(userData);
+      await axios.post("http://localhost:5000/auth/login", userData);
+      await getLoggedIn();
+    } catch (err) {
+      console.log(err);
+    }
 
-    setUserName("");
-    setUserPassword("");
-  };
+    // setUserName("");
+    // setUserPassword("");
+  }
   return (
     <div class="main-body">
       <h1>Welcome To Expense Handler App</h1>
@@ -119,7 +137,7 @@ const HomeScreen = () => {
             <input
               type="email"
               placeholder="Email"
-              value={userName}
+              value={userEmail}
               onChange={userNameChangeHandler}
             />
             <input
