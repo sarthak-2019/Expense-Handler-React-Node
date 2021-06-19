@@ -48,12 +48,11 @@ const HomeScreen = () => {
         password: enteredPassword,
         passwordVerify: enteredConfirmPassword,
       };
-      console.log(userData);
       await axios.post("http://localhost:5000/auth/signup", userData);
       await getLoggedIn();
-
       history.push("/main");
     } catch (err) {
+      alert(err.response.data.message);
       console.log(err);
     }
   }
@@ -79,10 +78,10 @@ const HomeScreen = () => {
       };
       await axios.post("http://localhost:5000/auth/login", userData);
       await getLoggedIn();
-      await getLoggedIn();
 
       history.push("/main");
     } catch (err) {
+      alert(err.response.data.message);
       console.log(err);
     }
 
