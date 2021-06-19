@@ -1,13 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 
 .main-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  font-family: "Montserrat", sans-serif;
-  height: 97.5vh;
-  margin: -20px 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 42%;
 }
 
 h1 {
@@ -222,16 +221,4 @@ input {
   margin: 0 5px;
   height: 40px;
   width: 40px;
-}
-
-footer {
-  background-color: #222;
-  color: #fff;
-  font-size: 14px;
-  bottom: 0;
-  position: fixed;
-  left: 0;
-  right: 0;
-  text-align: center;
-  z-index: 999;
 }
