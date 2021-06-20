@@ -9,6 +9,10 @@ const expenseSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'Amount cannot cannot be empty'],
   },
+  description: {
+    type: String,
+    default: 'No Description for this Expense Item.Please add if you want to!',
+  },
   date: {
     type: Date,
     required: [true, 'Date cannot cannot be empty'],

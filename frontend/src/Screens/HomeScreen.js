@@ -48,7 +48,10 @@ const HomeScreen = () => {
         password: enteredPassword,
         passwordVerify: enteredConfirmPassword,
       };
-      await axios.post("http://localhost:5000/auth/signup", userData);
+      await axios.post(
+        "https://mern-budget-bytes.herokuapp.com/auth/signup",
+        userData
+      );
       await getLoggedIn();
       history.push("/main");
     } catch (err) {
@@ -76,7 +79,10 @@ const HomeScreen = () => {
         email: userEmail,
         password: userPassword,
       };
-      await axios.post("http://localhost:5000/auth/login", userData);
+      await axios.post(
+        "https://mern-budget-bytes.herokuapp.com/auth/login",
+        userData
+      );
       await getLoggedIn();
 
       history.push("/main");

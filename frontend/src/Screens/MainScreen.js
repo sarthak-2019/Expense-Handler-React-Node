@@ -8,7 +8,9 @@ const MainScreen = () => {
   const [expenses, setExpenses] = useState([]);
 
   async function getExpenses() {
-    const expenseListTemp = await axios.get("http://localhost:5000/expense");
+    const expenseListTemp = await axios.get(
+      "https://mern-budget-bytes.herokuapp.com/expense"
+    );
     // console.log(expenseListTemp.data.data.expense);
     // var d = new Date(expenseListTemp.data.data.expense[0].date);
     // console.log(d);

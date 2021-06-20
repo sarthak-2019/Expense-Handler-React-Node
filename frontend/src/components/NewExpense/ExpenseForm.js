@@ -29,7 +29,10 @@ const ExpenseForm = (props) => {
         date: new Date(enteredDate),
       };
       props.onSaveExpenseData(expenseData);
-      await axios.post("http://localhost:5000/expense", expenseData);
+      await axios.post(
+        "https://mern-budget-bytes.herokuapp.com/expense",
+        expenseData
+      );
       setEnteredTitle("");
       setEnteredAmount("");
       setEnteredDate("");

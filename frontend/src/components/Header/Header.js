@@ -10,14 +10,16 @@ const Header = () => {
   const history = useHistory();
 
   async function getUserName() {
-    const userData = await axios.get("http://localhost:5000/expense/user");
+    const userData = await axios.get(
+      "https://mern-budget-bytes.herokuapp.com/expense/user"
+    );
     setUSerName(userData.data.data.name);
   }
   useEffect(() => {
     getUserName();
   }, []);
   async function logOut() {
-    await axios.get("http://localhost:5000/auth/logout");
+    await axios.get("https://mern-budget-bytes.herokuapp.com/auth/logout");
     await getLoggedIn();
     history.push("/");
   }

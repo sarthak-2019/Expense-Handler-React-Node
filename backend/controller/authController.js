@@ -83,15 +83,20 @@ exports.protect = catchAsync(async (req, res, next) => {
 });
 
 exports.logout = function (req, res) {
-  res.clearCookie('jwt');
-  res.status(200).json({
-    data: 'User Logged out Successfully',
-  });
+  res
+    .cookie('jwt', '', {
+      httpOnly: true,
+      expires: new Date(0),
+      secure: true,
+      sameSite: 'none',
+    })
+    .send();
 };
 
 exports.loggedIn = function (req, res) {
   try {
     const token = req.cookies.jwt;
+    console.log(token);
     if (!token) return res.json(false);
 
     jwt.verify(token, process.env.JWT_SECRET);
