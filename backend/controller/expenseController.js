@@ -49,3 +49,29 @@ exports.getExpense = catchAsync(async (req, res, next) => {
     },
   });
 });
+exports.updateExpense = catchAsync(async (req, res, next) => {
+  const expense = await Expense.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  if (!expense) {
+    return next(new AppError('No Expense found with that ID', 404));
+  }
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour,
+    },
+  });
+});
+exports.deleteExpense = catchAsync(async (req, res, next) => {
+  const id = req.params.id;
+  const expense = await Expense.findByIdAndDelete(id);
+  if (!expense) {
+    return next(new AppError('No Expense found with that ID', 404));
+  }
+  res.status(204).json({
+    status: 'sucess',
+    data: null,
+  });
+});

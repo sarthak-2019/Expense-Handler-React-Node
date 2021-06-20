@@ -6,6 +6,7 @@ const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
+  const [enteredDescription, setEnteredDescription] = useState("");
 
   const titleChangeHandler = (event) => {
     setEnteredTitle(event.target.value);
@@ -18,6 +19,9 @@ const ExpenseForm = (props) => {
   const dateChangeHandler = (event) => {
     setEnteredDate(event.target.value);
   };
+  const descriptionChangeHandler = (event) => {
+    setEnteredDescription(event.target.value);
+  };
 
   async function submitHandler(event) {
     event.preventDefault();
@@ -27,15 +31,13 @@ const ExpenseForm = (props) => {
         title: enteredTitle,
         amount: +enteredAmount,
         date: new Date(enteredDate),
+        description: enteredDescription,
       };
       props.onSaveExpenseData(expenseData);
       await axios.post(
         "https://mern-budget-bytes.herokuapp.com/expense",
         expenseData
       );
-      setEnteredTitle("");
-      setEnteredAmount("");
-      setEnteredDate("");
     } catch (err) {
       alert(err.response.data.message);
       console.log(err);
@@ -52,6 +54,14 @@ const ExpenseForm = (props) => {
             value={enteredTitle}
             onChange={titleChangeHandler}
             required
+          />
+        </div>
+        <div className="new-expense__control">
+          <label>Desription</label>
+          <input
+            type="text"
+            value={enteredDescription}
+            onChange={descriptionChangeHandler}
           />
         </div>
         <div className="new-expense__control">

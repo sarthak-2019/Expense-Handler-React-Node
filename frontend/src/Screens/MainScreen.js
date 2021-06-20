@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import NewExpense from "./../components/NewExpense/NewExpense";
 import Expenses from "./../components/Expenses/Expenses";
 import Header from "./../components/Header/Header";
 import axios from "axios";
+import AuthContext from "../context/AuthContext";
+import { useHistory } from "react-router-dom";
 
 const MainScreen = () => {
+  const { loggedIn } = useContext(AuthContext);
   const [expenses, setExpenses] = useState([]);
-
+  const history = useHistory();
   async function getExpenses() {
     const expenseListTemp = await axios.get(
       "https://mern-budget-bytes.herokuapp.com/expense"
@@ -23,8 +26,12 @@ const MainScreen = () => {
   }
 
   useEffect(() => {
-    getExpenses();
-  }, []);
+    if (!loggedIn) {
+      history.push("/");
+    } else {
+      getExpenses();
+    }
+  }, [loggedIn, history]);
 
   const addExpenseHandler = (expense) => {
     setExpenses((prevExpenses) => {
@@ -32,13 +39,15 @@ const MainScreen = () => {
     });
   };
   return (
-    <div>
-      <Header />
-      <React.Fragment>
-        <NewExpense onAddExpense={addExpenseHandler} />
-        <Expenses items={expenses} />
-      </React.Fragment>
-    </div>
+    <React.Fragment>
+      {loggedIn === true ? (
+        <div>
+          <Header />
+          <NewExpense onAddExpense={addExpenseHandler} />
+          <Expenses items={expenses} />
+        </div>
+      ) : null}
+    </React.Fragment>
   );
 };
 export default MainScreen;

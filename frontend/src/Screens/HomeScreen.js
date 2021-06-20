@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./HomeScreen.css";
 import AuthContext from "../context/AuthContext";
 import { useHistory } from "react-router-dom";
@@ -6,9 +6,14 @@ import Particle from "../components/Particles/Particle";
 import axios from "axios";
 
 const HomeScreen = () => {
-  const { getLoggedIn } = useContext(AuthContext);
   const history = useHistory();
+  const { loggedIn, getLoggedIn } = useContext(AuthContext);
 
+  useEffect(() => {
+    if (loggedIn) {
+      history.push("/main");
+    }
+  });
   const buttonHandler1 = () => {
     let box = document.getElementById("container");
     box.classList.remove("right-panel-active");
@@ -52,9 +57,17 @@ const HomeScreen = () => {
         "https://mern-budget-bytes.herokuapp.com/auth/signup",
         userData
       );
+      setEnteredName("");
+      setEnteredEmail("");
+      setEnteredPassword("");
+      setEnteredConfirmPassword("");
       await getLoggedIn();
       history.push("/main");
     } catch (err) {
+      setEnteredName("");
+      setEnteredEmail("");
+      setEnteredPassword("");
+      setEnteredConfirmPassword("");
       alert(err.response.data.message);
       console.log(err);
     }
@@ -83,6 +96,8 @@ const HomeScreen = () => {
         "https://mern-budget-bytes.herokuapp.com/auth/login",
         userData
       );
+      setUserName("");
+      setUserPassword("");
       await getLoggedIn();
 
       history.push("/main");
@@ -90,21 +105,21 @@ const HomeScreen = () => {
       alert(err.response.data.message);
       console.log(err);
     }
-
-    // setUserName("");
-    // setUserPassword("");
   }
   return (
     <div>
       <Particle />
       <div className="main-body">
-        <h1>Welcome To Expense Handler App</h1>
+        <div className="temp1">
+          <h1>Welcome To Expense Handler App</h1>
+        </div>
         <div className="container" id="container">
           <div className="form-container sign-up-container">
             <form onSubmit={submitHandler_SignUp}>
               <h1>Create Account</h1>
               <span>or use your email for registration</span>
               <input
+                className="temp2"
                 type="text"
                 placeholder="Name"
                 value={enteredName}
@@ -112,6 +127,7 @@ const HomeScreen = () => {
                 required
               />
               <input
+                className="temp2"
                 type="email"
                 placeholder="Email"
                 value={enteredEmail}
@@ -119,6 +135,7 @@ const HomeScreen = () => {
                 required
               />
               <input
+                className="temp2"
                 type="password"
                 minLength="4"
                 placeholder="Password"
@@ -127,6 +144,7 @@ const HomeScreen = () => {
                 required
               />
               <input
+                className="temp2"
                 type="password"
                 minLength="4"
                 placeholder="Confirm Password"
@@ -134,7 +152,7 @@ const HomeScreen = () => {
                 onChange={confirmPasswordChangeHandler}
                 required
               />
-              <button>Sign Up</button>
+              <button className="temp3">Sign Up</button>
             </form>
           </div>
           <div className="form-container sign-in-container">
@@ -142,6 +160,7 @@ const HomeScreen = () => {
               <h1>Sign in</h1>
               <span>or use your account</span>
               <input
+                className="temp2"
                 type="email"
                 placeholder="Email"
                 value={userEmail}
@@ -149,32 +168,45 @@ const HomeScreen = () => {
                 required
               />
               <input
+                className="temp2"
                 type="password"
                 placeholder="Password"
                 value={userPassword}
                 onChange={userPasswordChangeHandler}
                 required
               />
-              <button>Sign In</button>
+              <button className="temp3">Sign In</button>
             </form>
           </div>
           <div className="overlay-container">
             <div className="overlay">
               <div className="overlay-panel overlay-left">
                 <h1>Welcome Back!</h1>
-                <p>To keep connected please login with your personal info</p>
-                <button className="ghost" id="signIn" onClick={buttonHandler1}>
+                <div class="temp4">
+                  <p>To keep connected please login with your personal info</p>
+                </div>
+                <button
+                  className="ghost temp3"
+                  id="signIn"
+                  onClick={buttonHandler1}
+                >
                   Sign In
                 </button>
               </div>
               <div className="overlay-panel overlay-right">
                 <h1>Hello !</h1>
-                <p>
-                  Sign Up for start using the service. Hope you will like the
-                  experience.Visit my Github repository for more interesting
-                  projects.
-                </p>
-                <button className="ghost" id="signUp" onClick={buttonHandler2}>
+                <div class="temp4">
+                  <p>
+                    Sign Up for start using the service. Hope you will like the
+                    experience.Visit my Github repository for more interesting
+                    projects.
+                  </p>
+                </div>
+                <button
+                  className="ghost temp3"
+                  id="signUp"
+                  onClick={buttonHandler2}
+                >
                   Sign Up
                 </button>
               </div>

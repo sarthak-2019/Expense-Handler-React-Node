@@ -29,7 +29,7 @@ const Header = () => {
       <div className={classes.header}>
         <img src={logo} alt="" height={50} width={50} />
         <h3>Hi! {userName}</h3>
-        <button className="button-item" onClick={logOut}>
+        <button className={classes.button_item_header} onClick={logOut}>
           Log Out
         </button>
       </div>
