@@ -5,6 +5,10 @@ const AppError = require('./../utils/appError');
 
 exports.createExpense = catchAsync(async (req, res, next) => {
   req.body.user = req.user._id;
+  if (req.body.description === '') {
+    req.body.description =
+      'No Description for this Expense Item.Please update if you want to!';
+  }
   console.log(req.body);
   const newExpense = await Expense.create(req.body);
   res.status(201).json({
@@ -60,7 +64,7 @@ exports.updateExpense = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: {
-      tour,
+      expense,
     },
   });
 });

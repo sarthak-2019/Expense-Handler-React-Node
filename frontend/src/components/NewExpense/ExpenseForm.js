@@ -38,6 +38,7 @@ const ExpenseForm = (props) => {
         "https://mern-budget-bytes.herokuapp.com/expense",
         expenseData
       );
+      console.log(expenseData);
     } catch (err) {
       alert(err.response.data.message);
       console.log(err);

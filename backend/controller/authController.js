@@ -17,7 +17,10 @@ const createSendToken = (user, statusCode, res) => {
     ),
     httpOnly: true,
   };
-  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+  if (process.env.NODE_ENV === 'production') {
+    cookieOptions.secure = true;
+    cookieOptions.sameSite = 'none';
+  }
 
   res.cookie('jwt', token, cookieOptions);
 
@@ -92,11 +95,9 @@ exports.logout = function (req, res) {
     })
     .send();
 };
-
 exports.loggedIn = function (req, res) {
   try {
     const token = req.cookies.jwt;
-    console.log(token);
     if (!token) return res.json(false);
 
     jwt.verify(token, process.env.JWT_SECRET);

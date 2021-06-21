@@ -2,12 +2,14 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const morgan = require('morgan');
+const globalErrorHandler = require('./controller/errorController');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
-const globalErrorHandler = require('./controller/errorController');
 const app = express();
 
+// Set Security Http Headers
+app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
@@ -21,14 +23,13 @@ app.use(
     credentials: true,
   })
 );
-// Set Security Http Headers
-app.use(helmet());
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
 
 // Data sanitization against XSS
 // Clean user input from html and js code
 app.use(xss());
+
 //   Set up the routes
 
 app.use('/auth', require('./routers/userRouter'));

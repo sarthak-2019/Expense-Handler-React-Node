@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function ContactItem({ title, icon, cont1, cont2 }) {
+function ContactItem({ title, icon, cont1, cont2, cont3 }) {
   return (
     <ContactItemStyled>
       <div className="left-content">{icon}</div>
@@ -9,6 +9,7 @@ function ContactItem({ title, icon, cont1, cont2 }) {
         <h6>{title}</h6>
         <p>{cont1}</p>
         <p>{cont2}</p>
+        <p>{cont3}</p>
       </div>
     </ContactItemStyled>
   );
@@ -38,8 +39,9 @@ const ContactItemStyled = styled.div`
 
   .right-content {
     h6 {
+      font-weight: bold;
       color: #151515;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       padding-bottom: 0.6rem;
     }
     p {

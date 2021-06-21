@@ -182,7 +182,7 @@ const HomeScreen = () => {
             <div className="overlay">
               <div className="overlay-panel overlay-left">
                 <h1>Welcome Back!</h1>
-                <div class="temp4">
+                <div className="temp4">
                   <p>To keep connected please login with your personal info</p>
                 </div>
                 <button
@@ -195,7 +195,7 @@ const HomeScreen = () => {
               </div>
               <div className="overlay-panel overlay-right">
                 <h1>Hello !</h1>
-                <div class="temp4">
+                <div className="temp4">
                   <p>
                     Sign Up for start using the service. Hope you will like the
                     experience.Visit my Github repository for more interesting
